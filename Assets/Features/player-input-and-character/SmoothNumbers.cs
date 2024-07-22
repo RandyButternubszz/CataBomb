@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IMoveTowards<T>
-{
-    T MoveTowards(T current, T target, float maxDelta);
-}
+{ T MoveTowards(T current, T target, float maxDelta); }
 public class FloatMoveTowards : IMoveTowards<float>
 {
     public float MoveTowards(float current, float target, float maxDelta) 
@@ -23,13 +21,13 @@ public class Vector3MoveTowards : IMoveTowards<Vector3>
         => Vector3.MoveTowards(current, target, maxDelta);
 }
 
-public class SmoothNumbers<T> : MonoBehaviour
+public class SmoothNumbers<T>
 {
     public T CurrentNum { get; private set; }
     public T DesiredNum { get; set; }
 
     private float _movementPerSecond;
-    private readonly IMoveTowards<T> _moveTowards;
+    private IMoveTowards<T> _moveTowards;
 
     public Func<float, T> UpdateNum;
 

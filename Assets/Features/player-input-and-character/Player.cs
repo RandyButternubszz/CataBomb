@@ -9,17 +9,19 @@ public class Player : MonoBehaviour
     private CharacterController _controller;
     private SmoothNumbers<Vector3> _velocity;
     public float speed;
+    public float lerpSpeed;
     void Start()
     {
         _controller = GetComponent<CharacterController>();
-        _velocity = new SmoothNumbers<Vector3>(Vector3.zero, 2, new Vector3MoveTowards());
+
+        _velocity = new SmoothNumbers<Vector3>(Vector3.zero, lerpSpeed, new Vector3MoveTowards());
     }
 
     
     void Update()
     {
+        _velocity.UpdateNum(Time.deltaTime);
         _controller.Move(_velocity.CurrentNum * Time.deltaTime);
-        Debug.Log(_velocity.CurrentNum);
     }
     public void MoveControl(InputAction.CallbackContext context)
     {
